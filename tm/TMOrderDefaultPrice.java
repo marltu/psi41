@@ -6,20 +6,19 @@ import objects.Country;
 
 public class TMOrderDefaultPrice extends TMOrder
 {
-	protected float calculateDiscount(float basePrice, Client client)
-	{
-		return basePrice * (float) 0.3;
-	}
-	
+	private DefaultPrice priceCalculation = new DefaultPrice();
 	protected float calculateTax(float basePrice, Country country)
 	{
-		return 0;
+		return priceCalculation.calculateTax(basePrice, country);
+	}
+	
+	protected float calculateDiscount(float basePrice, Client client)
+	{
+		return priceCalculation.calculateDiscount(basePrice, client);
 	}
 	
 	protected float calculateMargin(float basePrice, Country country)
 	{
-		return basePrice * country.getVAT();
-	}
-	
-	
+		return priceCalculation.calculateMargin(basePrice, country);
+	}	
 }
